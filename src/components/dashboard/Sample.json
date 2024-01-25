@@ -1,0 +1,95 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "Alice Johnson",
+        "semester": 5,
+        "college": "Engineering College",
+        "about": "Computer Science student with a passion for software development.",
+        "skills": ["Java", "Python", "HTML", "CSS"],
+        "expertise": ["Web Development", "Algorithms"]
+      },
+      {
+        "id": 2,
+        "name": "Bob Smith",
+        "semester": 3,
+        "college": "Science College",
+        "about": "Biology major aspiring to contribute to medical research.",
+        "skills": ["Lab Techniques", "Data Analysis"],
+        "expertise": ["Genetics", "Microbiology"]
+      },
+      {
+        "id": 3,
+        "name": "Charlie Brown",
+        "semester": 7,
+        "college": "Business School",
+        "about": "Finance student with a keen interest in investment strategies.",
+        "skills": ["Financial Analysis", "Risk Management"],
+        "expertise": ["Investment Banking", "Portfolio Management"]
+      },
+      {
+        "id": 4,
+        "name": "Diana Miller",
+        "semester": 2,
+        "college": "Arts College",
+        "about": "Art history enthusiast and aspiring curator.",
+        "skills": ["Art Research", "Curatorial Studies"],
+        "expertise": ["Renaissance Art", "Contemporary Art"]
+      },
+      {
+        "id": 5,
+        "name": "Ethan Turner",
+        "semester": 6,
+        "college": "Social Sciences School",
+        "about": "Psychology major interested in understanding human behavior.",
+        "skills": ["Research Methods", "Counseling"],
+        "expertise": ["Cognitive Psychology", "Clinical Psychology"]
+      },
+      {
+        "id": 6,
+        "name": "Fiona Davis",
+        "semester": 4,
+        "college": "Communication School",
+        "about": "Media Studies student with a passion for storytelling.",
+        "skills": ["Video Editing", "Scriptwriting"],
+        "expertise": ["Documentary Filmmaking", "Digital Media"]
+      },
+      {
+        "id": 7,
+        "name": "George Harris",
+        "semester": 8,
+        "college": "Law School",
+        "about": "Law student dedicated to promoting justice and equality.",
+        "skills": ["Legal Research", "Negotiation"],
+        "expertise": ["Constitutional Law", "Human Rights"]
+      },
+      {
+        "id": 8,
+        "name": "Hannah Lee",
+        "semester": 1,
+        "college": "Health Sciences School",
+        "about": "Nursing student with a commitment to patient care.",
+        "skills": ["Patient Care", "Medical Terminology"],
+        "expertise": ["Pediatric Nursing", "Emergency Medicine"]
+      },
+      {
+        "id": 9,
+        "name": "Ian Turner",
+        "semester": 5,
+        "college": "Engineering College",
+        "about": "Electrical Engineering student with a focus on renewable energy.",
+        "skills": ["Circuit Design", "Renewable Energy Systems"],
+        "expertise": ["Solar Power", "Wind Energy"]
+      },
+      {
+        "id": 10,
+        "name": "Jasmine Patel",
+        "semester": 3,
+        "college": "Science College",
+        "about": "Chemistry major passionate about environmental sustainability.",
+        "skills": ["Analytical Chemistry", "Environmental Science"],
+        "expertise": ["Green Chemistry", "Pollution Control"]
+      }
+    ]
+  }
+  
