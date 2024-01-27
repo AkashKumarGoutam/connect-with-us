@@ -1,9 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import Navbar from '../components/Navbar'
 
 export default function Welcome() {
   return (
     <div>
+        <Navbar/>
+        <div>
       <div className="bg-blue-800 h-screen">
         <div className="container mx-auto w-[95%] p-4   text-white flex justify-between">
           <label className=" text-4xl">Board.</label>
@@ -20,5 +22,7 @@ export default function Welcome() {
         </div>
       </div>
     </div>
-  );
+      
+    </div>
+  )
 }
