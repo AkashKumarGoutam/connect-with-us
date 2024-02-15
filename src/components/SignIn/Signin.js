@@ -1,7 +1,63 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import {auth} from '../../Auth/Firebase'
+import {signInWithEmailAndPassword} from '../../Auth/Firebase'
+
 
 export default function Signin() {
+  const [email,setEmail]=useState()
+  const[password,setPassword]=useState()
+  const navigate = useNavigate();
+  // const[emailError , setEmailError]=useState(false)
+  // const[passwordError , setPasswordError]=useState(false)
+
+
+  // const handleSignin=(e)=>{
+  //   if(email ==="" || password ===""){
+  //     alert("Please fill all filled");
+  //   }else{
+  //     alert("Signin succeccfull");
+  //   }
+  //   e.preventDefault();
+  // }
+  const handleSignin = async(e) => {
+    e.preventDefault();
+    console.log(email,password);
+
+try {
+await signInWithEmailAndPassword(auth ,email, password);
+console.log("User signed up successfully!");
+navigate('/home');
+
+} catch (error) {
+console.error("Error signing up:", error);
+alert("your password is wrong ")
+}
+};
+
+  // const handleEmail=(e)=>{
+  //   let item = e.target.value;
+  //   if(item === ""){
+  //     setEmailError(true);
+  //   }
+  //   else{
+  //     setEmailError(false);
+  //   }
+  //   setEmail(item);
+  // }
+
+  // const handlePassword=(e)=>{
+  //   let item = e.target.value;
+  //   if(item === ""){
+  //     setPasswordError(true);
+  //   }
+  //   else{
+  //     setPasswordError(false)
+  //   }
+  //   setPassword(item);
+  // }
+
+
   return (
     <div>
       <div className="flex lg:flex-row flex-col">
@@ -68,10 +124,10 @@ export default function Signin() {
           <div>
             <div className="flex px-8 flex-col justify-center lg:py-[10%] lg:px-56">
               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" action="#" method="POST">
+                <form onSubmit={handleSignin} className="space-y-6" action="#" method="POST">
                   <div>
                     <label
-                      for="email"
+                      htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Email address
@@ -80,18 +136,21 @@ export default function Signin() {
                       <input
                         id="email"
                         name="email"
+                        // onChange={handleEmail}
+                        onChange={(e)=>setEmail(e.target.value)}
+                        value={email}
                         type="email"
-                        autocomplete="email"
                         required
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
+                      {/* {emailError?"please fill email":""} */}
                     </div>
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between">
                       <label
-                        for="password"
+                        htmlFor="password"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Password
@@ -101,11 +160,14 @@ export default function Signin() {
                       <input
                         id="password"
                         name="password"
+                        // onChange={handlePassword}
+                        onChange={(e)=>setPassword(e.target.value)}
+                        value={password}
                         type="password"
-                        autocomplete="current-password"
                         required
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
+                      {/* {passwordError?"please fill password":""} */}
                     </div>
                     <div className="text-sm">
                       <a
@@ -130,11 +192,10 @@ export default function Signin() {
                 <p className="mt-10 text-center text-sm text-gray-500">
                 Don't have an account?
                   <Link
-                    to="/register"
+                    to="/sign_up"
                     className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                   >
-                    Register here
-                  </Link>
+                    SignUp                  </Link>
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../dashboard/Header'
+import Header from '../navbar/Header'
 
 export default function ForumPage() {
   return (
