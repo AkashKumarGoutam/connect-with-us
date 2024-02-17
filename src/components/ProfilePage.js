@@ -5,7 +5,7 @@ import Header from "./navbar/Header";
 import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState("a");
 
   const fetchData = async () => {
     try {

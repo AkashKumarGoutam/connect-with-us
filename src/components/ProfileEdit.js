@@ -3,62 +3,64 @@ import Header from "./navbar/Header";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../Auth/Firebase";
 import { auth } from "../Auth/Firebase"; // Assuming you have set up Firebase in a separate file
+// import { imageUpload } from "../Auth/Firebase";
 
 export default function ProfileEdit() {
-  const [profileImage, setProfileImage] = useState("../img/profilepic.jpg"); // Default profile image
-  const [fullName, setfullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [expertise, setExpertise] = useState("");
-  const [college, setcollege] = useState("");
-  const [city, setCity] = useState("");
-  const [skills, setSkills] = useState("");
-  const [about, setAbout] = useState("");
-  const [phone, setPhone] = useState("");
-  const [course, setcourse] = useState("");
-  const [year, setyear] = useState("");
-  const [socialLinks, setSocialLinks] = useState("");
-  const currentUserid = auth.currentUser.uid;
-  console.log(currentUserid);
-
-  const postValue = doc(firestore, "userData", currentUserid);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await setDoc(postValue, {
-        fullName: fullName,
-        email: email,
-        expertise: expertise,
-        college: college,
-        course: course,
-        year: year,
-        city: city,
-        phone: phone,
-        about: about,
-        skills: skills,
-        socialLinks: socialLinks,
-        // profileImage: profileImage
-      });
-      alert("Successfully submitted");
-    } catch (error) {
-      console.error("Error submitting data: ", error);
-      alert("Error submitting data. Please try again later.");
-    }
-  };
-
-  // Function to handle image selection
-  const handleImageChange = (event) => {
-    const selectedFile = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setProfileImage(reader.result);
+    const [profileImage, setProfileImage] = useState("../img/profilepic.jpg");
+    const [fullName, setfullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [expertise, setExpertise] = useState("");
+    const [college, setcollege] = useState("");
+    const [city, setCity] = useState("");
+    const [skills, setSkills] = useState("");
+    const [about, setAbout] = useState("");
+    const [phone, setPhone] = useState("");
+    const [course, setcourse] = useState("");
+    const [year, setyear] = useState("");
+    const [socialLinks, setSocialLinks] = useState("");
+    const currentUserid = auth.currentUser.uid;
+  
+    const postValue = doc(firestore, "userData", currentUserid);
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        await setDoc(postValue, {
+          fullName: fullName,
+          email: email,
+          expertise: expertise,
+          college: college,
+          course: course,
+          year: year,
+          city: city,
+          phone: phone,
+          about: about,
+          skills: skills,
+          socialLinks: socialLinks,
+          profileImage: profileImage
+        });
+        alert("Successfully submitted");
+      } catch (error) {
+        console.error("Error submitting data: ", error);
+        alert("Error submitting data. Please try again later.");
+      }
     };
-
-    if (selectedFile) {
-      reader.readAsDataURL(selectedFile);
-    }
-  };
+  
+    const handleImageChange = async (event) => {
+      const selectedFile = event.target.files[0];
+      const storageRef = Storage.ref();
+      const fileRef = storageRef.child(
+        `profile_images/${currentUserid}/${selectedFile.name}`
+      );
+  
+      try {
+        await fileRef.put(selectedFile);
+        const imageUrl = await fileRef.getDownloadURL();
+        setProfileImage(imageUrl);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
   return (
     <div>
       <Header />
