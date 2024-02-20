@@ -8,18 +8,7 @@ export default function Signin() {
   const [email,setEmail]=useState()
   const[password,setPassword]=useState()
   const navigate = useNavigate();
-  // const[emailError , setEmailError]=useState(false)
-  // const[passwordError , setPasswordError]=useState(false)
 
-
-  // const handleSignin=(e)=>{
-  //   if(email ==="" || password ===""){
-  //     alert("Please fill all filled");
-  //   }else{
-  //     alert("Signin succeccfull");
-  //   }
-  //   e.preventDefault();
-  // }
   const handleSignin = async(e) => {
     e.preventDefault();
     console.log(email,password);
@@ -35,27 +24,7 @@ alert("your password is wrong ")
 }
 };
 
-  // const handleEmail=(e)=>{
-  //   let item = e.target.value;
-  //   if(item === ""){
-  //     setEmailError(true);
-  //   }
-  //   else{
-  //     setEmailError(false);
-  //   }
-  //   setEmail(item);
-  // }
 
-  // const handlePassword=(e)=>{
-  //   let item = e.target.value;
-  //   if(item === ""){
-  //     setPasswordError(true);
-  //   }
-  //   else{
-  //     setPasswordError(false)
-  //   }
-  //   setPassword(item);
-  // }
 
 
   return (

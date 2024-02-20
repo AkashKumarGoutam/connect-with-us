@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { firestore, auth } from "../Auth/Firebase"; // Assuming you have set up Firebase in a separate file
-import Header from "./navbar/Header";
+import Navbar from '../../components/navbar/Navbar'
+import { firestore, auth } from "../../Auth/Firebase"; // Assuming you have set up Firebase in a separate file
 import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -17,6 +17,7 @@ export default function ProfilePage() {
       querySnapshot.forEach((doc) => {
         if(doc.id === userUid){
             setUserData(doc.data());
+            console.log(doc.data());
         }
       });
     } catch (error) {
@@ -28,21 +29,22 @@ export default function ProfilePage() {
     fetchData();
   }, []);
 
+
+
+
+  
   return (
     <div>
-      <Header />
-
-
+      <Navbar/>
       {userData && (
-      
 
       <div className="flex flex-col lg:flex-row lg:gap-4">
         <div className="left-div lg:[30%]">
           <div className="flex flex-col justify-center items-center py-4 border-2 shadow-lg lg:p-12">
             <img
-              src="../img/profilepic.jpg"
-              alt="img"
-              className="lg:w-60 lg:h-60 w-24 h-24 rounded-full "
+              src={userData.profileImage}
+              alt="user"
+              className="border-4 lg:w-60 lg:h-60 w-24 h-24 rounded-full "
             />
             <h1 className="text-md font-semibold pt-2">{userData.fullName}</h1>
             <h1 className="text-xs text-gray-400">{userData.email}   </h1>
@@ -143,21 +145,10 @@ export default function ProfilePage() {
             </div>
           </div>
           <div>
-            <div className="border-2 border-gray-400 h-12 mt-6 mt-32 bg-gray-100 overflow-hidden text-lg font-semibold flex gap-2 justify-center items-center">
-              <h1>Made By</h1>
-              <h1 className="text-blue-700 cursor-pointer">
-                🧡Akash Kumar Goutam
-              </h1>
-            </div>
           </div>
         </div>
       </div>
-
 )}
-
-      {/* // ) : (
-//     <p>Loading user data...</p>
-//   )} */}
     </div>
   );
 }

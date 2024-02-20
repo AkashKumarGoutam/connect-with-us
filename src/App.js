@@ -1,31 +1,27 @@
 import './App.css';
-import Signin from './components/SignIn/Signin';
-import Welcome from './components/welcome/Welcome';
+import Signin from './pages/signIn/Signin';
 import { Route, Routes } from "react-router-dom";
-import Dashboard from './components/dashboard/Dashboard';
-import HomePage from './components/Home/HomePage';
-import CommunityPage from './components/community/CommunityPage';
-import ForumPage from './components/forum/ForumPage';
-import SignUp from './components/SignUp/SignUp';
-import DevDetail from './components/DevDetail/DevDetail';
-import ProfilePage from './components/ProfilePage';
-import NoticePage from './components/NoticePage';
-import ChatBox from './components/ChatBox';
-import ProfileEdit from './components/ProfileEdit';
+import Dashboard from './pages/community/Dashboard';
+import HomePage from './pages/home/HomePage';
+import ForumPage from './pages/forum/ForumPage';
+import SignUp from './pages/signUp/SignUp';
+import ProfilePage from './pages/Profile/ProfilePage';
+import NoticePage from './pages/notification/NoticePage';
+import ChatBox from './pages/chatBox/ChatBox';
+import ProfileEdit from './pages/profile_edit/ProfileEdit';
+import Welcome from './pages/welcome/Welcome';
 
 
 function App() {
   return (
-    <> 
+    <>
     <Routes>
     <Route path="/" element={<Welcome/>} />
     <Route path="/sign_in" element={<Signin />} />
     <Route path="/sign_up" element={<SignUp/>} />
     <Route path="/dashboard" element={<Dashboard/>} />
     <Route path="/home" element={<HomePage/>} />
-    <Route path="/community" element={<CommunityPage/>} />
     <Route path="/forum" element={<ForumPage/>} />
-    <Route path="/dev_detail" element={<DevDetail/>} />
     <Route path="/profile_page" element={<ProfilePage/>} />
     <Route path="/notice_page" element={<NoticePage/>} />
     <Route path="/chat" element={<ChatBox/>} />

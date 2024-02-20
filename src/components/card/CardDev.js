@@ -32,7 +32,7 @@ export default function CardDev() {
             <div className="flex flex-col p-4 border-2 m-4 shadow-xl ">
               <div className="flex gap-16">
                 <img
-                  src="../img/profilepic.jpg"
+                  src={user.profileImage}
                   className="w-24 h-24 border-2 rounded-full "
                   alt="profile-pic"
                 />

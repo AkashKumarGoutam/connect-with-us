@@ -1,12 +1,11 @@
 import React from "react";
-import Header from "../navbar/Header";
+import Navbar from '../../components/navbar/Navbar'
 
 export default function HomePage() {
   return (
     <div>
-      <Header />
-
-      <div className="flex flex-col ">
+      <Navbar/>
+      <div className="flex flex-col">
         <div className="flex flex-col lg:flex-row justify-between p-12 items-center">
           <div className="flex flex-col justify-center items-center gap-2">
             <h1 className="text-4xl font-bold hover:text-blue-700">
@@ -37,12 +36,6 @@ export default function HomePage() {
               explore new interests, and prepare for successful careers.{" "}
             </h1>
           </div>
-        </div>
-
-
-        <div className="border-2 border-gray-400 h-12 lg:mt-6 mt-32 bg-gray-100 overflow-hidden text-lg font-semibold flex gap-2 justify-center items-center">
-            <h1>Made By</h1>
-            <h1 className="text-blue-700 cursor-pointer">🧡Akash Kumar Goutam</h1>
         </div>
       </div>
     </div>

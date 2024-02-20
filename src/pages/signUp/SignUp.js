@@ -11,20 +11,6 @@ export default function SignUp() {
     const[password,setPassword]=useState()
     const navigate = useNavigate();
 
-    // const[emailError , setEmailError]=useState(false)
-    // const[passwordError , setPasswordError]=useState(false)
-    // const[userNameError , setuserNameError]=useState(false)
-
-    // const handleSignup =(e) =>{
-    //     if(username ==="" || email ==="" || password===""){
-    //         alert("please fill all filled");
-    //     }
-    //     else{
-    //         alert("Sign Up successfull 😊 ")
-    //     }
-    //     e.preventDefault();
-    // }
-
     const handleSignup = async(e) => {
               e.preventDefault();
               console.log(username,email,password);
@@ -38,40 +24,6 @@ export default function SignUp() {
         console.error("Error signing up:", error);
       }
     };
-
-    // const handleUserName=(e)=>{
-    //      let item = e.target.value;
-    //      if(item === ""){
-    //         setuserNameError(true);
-    //      }
-    //      else{
-    //         setuserNameError(false);
-    //      }
-    //     setUserName(item);
-    // }
-
-  //   const handleEmail=(e)=>{
-  //       let item = e.target.value;
-  //       if(item===""){
-  //          setEmailError(true);
-  //       }
-  //       else{
-  //          setEmailError(false);
-  //       }
-  //      setEmail(item);
-  //  }
-
-//    const handlePassword=(e)=>{
-//     let item = e.target.value;
-//     if(item===""){
-//        setPasswordError(true);
-//     }
-//     else{
-//         setPasswordError(false);
-//     }
-//    setPassword(item);
-// }
-
 
   return (
     <div>

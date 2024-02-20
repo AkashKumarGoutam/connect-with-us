@@ -1,77 +1,128 @@
-import React, { useState } from "react";
-import Header from "./navbar/Header";
-import { doc, setDoc } from "firebase/firestore";
-import { firestore } from "../Auth/Firebase";
-import { auth } from "../Auth/Firebase"; // Assuming you have set up Firebase in a separate file
-// import { imageUpload } from "../Auth/Firebase";
+import React, { useEffect,useState } from "react";
+import { doc, setDoc ,getDoc } from "firebase/firestore";
+import { firestore, auth } from "../../Auth/Firebase";
+import Navbar from '../../components/navbar/Navbar';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../Auth/Firebase"; // Assuming you've imported storage from your Firebase config file.
+
+
+
+
 
 export default function ProfileEdit() {
-    const [profileImage, setProfileImage] = useState("../img/profilepic.jpg");
-    const [fullName, setfullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [expertise, setExpertise] = useState("");
-    const [college, setcollege] = useState("");
-    const [city, setCity] = useState("");
-    const [skills, setSkills] = useState("");
-    const [about, setAbout] = useState("");
-    const [phone, setPhone] = useState("");
-    const [course, setcourse] = useState("");
-    const [year, setyear] = useState("");
-    const [socialLinks, setSocialLinks] = useState("");
-    const currentUserid = auth.currentUser.uid;
-  
-    const postValue = doc(firestore, "userData", currentUserid);
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+
+  const [profileImageUrl, setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
+  const[profileImage ,setProfileImage]= useState()
+  const [fullName, setfullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [expertise, setExpertise] = useState("");
+  const [college, setcollege] = useState("");
+  const [city, setCity] = useState("");
+  const [skills, setSkills] = useState("");
+  const [about, setAbout] = useState("");
+  const [phone, setPhone] = useState("");
+  const [course, setcourse] = useState("");
+  const [year, setyear] = useState("");
+  const [socialLinks, setSocialLinks] = useState("");
+  const currentUserid = auth.currentUser.uid;
+
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        await setDoc(postValue, {
-          fullName: fullName,
-          email: email,
-          expertise: expertise,
-          college: college,
-          course: course,
-          year: year,
-          city: city,
-          phone: phone,
-          about: about,
-          skills: skills,
-          socialLinks: socialLinks,
-          profileImage: profileImage
-        });
-        alert("Successfully submitted");
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const userDocRef = doc(firestore, "userData", currentUser.uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+          const userData = userDocSnapshot.data();
+
+          setfullName(userData.fullName || "");
+          setEmail(userData.email || "");
+          setExpertise(userData.expertise || "");
+          setcollege(userData.college || "");
+          setCity(userData.city || "");
+          setSkills(userData.skills || "");
+          setAbout(userData.about || "");
+          setPhone(userData.phone || "");
+          setcourse(userData.course || "");
+          setyear(userData.year || "");
+          setSocialLinks(userData.socialLinks || "");
+          setProfileImage(userData.profileImage|| "");
+
+        }
       } catch (error) {
-        console.error("Error submitting data: ", error);
-        alert("Error submitting data. Please try again later.");
+        console.error("Error fetching user data:", error);
       }
     };
-  
-    const handleImageChange = async (event) => {
-      const selectedFile = event.target.files[0];
-      const storageRef = Storage.ref();
-      const fileRef = storageRef.child(
-        `profile_images/${currentUserid}/${selectedFile.name}`
-      );
-  
-      try {
-        await fileRef.put(selectedFile);
-        const imageUrl = await fileRef.getDownloadURL();
-        setProfileImage(imageUrl);
-      } catch (error) {
-        console.error("Error uploading image:", error);
+
+    fetchData();
+  }, []);
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Upload profile image to Firebase Storage
+      let profileImageUrl = '';
+      if (profileImage) {
+        const storageRef = ref(storage, `profileImages/${currentUserid}`);
+        await uploadBytes(storageRef, profileImage);
+        profileImageUrl = await getDownloadURL(storageRef);
       }
+      
+      // Save user data including the profile image URL to Firestore
+      const postValue = doc(firestore, "userData", currentUserid);
+      await setDoc(postValue, {
+        fullName: fullName,
+        email: email,
+        expertise: expertise,
+        college: college,
+        course: course,
+        year: year,
+        city: city,
+        phone: phone,
+        about: about,
+        skills: skills,
+        socialLinks: socialLinks,
+        profileImage: profileImageUrl, // Save profile image URL
+      });
+      
+      alert("Successfully submitted");
+    } catch (error) {
+      console.error("Error submitting data: ", error);
+      alert("Error submitting data. Please try again later.");
+    }
+  };
+  
+  
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  
+    // Show image preview
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setProfileImageUrl(event.target.result);
     };
+    reader.readAsDataURL(file);
+  };
+  
+
   return (
     <div>
-      <Header />
+      <Navbar/>
       <div className="flex flex-col lg:flex-row lg:gap-4">
         <div className="left-div lg:[30%]">
-          <div className="flex flex-col justify-center items-center py-4 border-2 shadow-lg lg:p-12">
+          <div className="flex flex-col justify-center items-center py-4 border-2 shadow-lg lg:p-12" >          
+          
             <label htmlFor="file-input">
               <img
-                src={profileImage}
-                alt="Profile"
-                className="lg:w-60 lg:h-60 w-24 h-24 rounded-full cursor-pointer"
+  src={profileImage}
+  alt="Profile"
+                className="border-2 lg:w-60 lg:h-60 w-24 h-24 rounded-full cursor-pointer"
               />
             </label>
             <input
@@ -106,7 +157,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold  w-32"> Full Name :</h1>
                 <input
                   type="text"
-                  placeholder="  full name"
                   value={fullName}
                   onChange={(e) => setfullName(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -116,7 +166,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32"> Email Id :</h1>
                 <input
                   type="email"
-                  placeholder="  email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -126,7 +175,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold  w-32"> College :</h1>
                 <input
                   type="text"
-                  placeholder="  college"
                   value={college}
                   onChange={(e) => setcollege(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -136,7 +184,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold  w-32"> Course :</h1>
                 <input
                   type="text"
-                  placeholder="  course"
                   value={course}
                   onChange={(e) => setcourse(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -146,7 +193,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold  w-32"> Years :</h1>
                 <input
                   type="text"
-                  placeholder="  year"
                   value={year}
                   onChange={(e) => setyear(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -156,7 +202,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">Expertise :</h1>
                 <input
                   type="text"
-                  placeholder="  expertise"
                   value={expertise}
                   onChange={(e) => setExpertise(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -166,7 +211,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">City :</h1>
                 <input
                   type="text"
-                  placeholder="  city"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -176,7 +220,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">About :</h1>
                 <input
                   type="text"
-                  placeholder="  about"
                   value={about}
                   onChange={(e) => setAbout(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -186,7 +229,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">Phone Number :</h1>
                 <input
                   type="number"
-                  placeholder="  number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -196,7 +238,6 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">Skills :</h1>
                 <input
                   type="text"
-                  placeholder="  add skills"
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
@@ -206,12 +247,12 @@ export default function ProfileEdit() {
                 <h1 className="text-md font-semibold w-32">Social Links :</h1>
                 <input
                   type="text"
-                  placeholder="  add skills"
                   value={socialLinks}
                   onChange={(e) => setSocialLinks(e.target.value)}
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
                 />
               </div>
+
             </div>
             <div>
               <button

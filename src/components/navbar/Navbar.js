@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link , useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore , auth } from "../../Auth/Firebase";
 
 export default function Header() {
+  const [userData,setUserData]=useState()
 const navigate = useNavigate()
 
 const [profileOpen, setProfileOpen] = useState(false); // State to track if profile dropdown is open
@@ -14,6 +17,30 @@ const handleProfile = () => {
 const openNoticePage=()=>{
   navigate("/notice_page")
 }
+
+
+
+const fetchData = async () => {
+  try {
+    const userUid = auth.currentUser.uid;
+    console.log(userUid)
+    if (!userUid) return;
+
+    const querySnapshot = await getDocs(collection(firestore, "userData"));
+    querySnapshot.forEach((doc) => {
+      if(doc.id === userUid){
+          setUserData(doc.data());
+          console.log(doc.data());
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, []);
   return (
     <div>
       <nav className="flex justify-between border-b-2 shadow-xl lg:h-20 h-16">
@@ -35,7 +62,9 @@ const openNoticePage=()=>{
 
 
           <div className="relative">
-              <img src='../img/profilepic.jpg' alt='img' className='w-16 h-16 rounded-full cursor-pointer' onClick={handleProfile}/>
+            {userData  &&(
+              <img src={userData.profileImage} alt='User' className=' border-4 border-blue-400 w-16 h-16 rounded-full cursor-pointer' onClick={handleProfile}/>
+              )}
               {profileOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                   {/* Dropdown content */}
@@ -49,6 +78,7 @@ const openNoticePage=()=>{
           </div>
         </div>
       </nav>
+
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CardDev from "../card/CardDev";
+import CardDev from "../../components/card/CardDev";
 
 export default function Body() {
   return (

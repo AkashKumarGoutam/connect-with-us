@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from '../navbar/Header'
 import Body from './Body'
+import Navbar from '../../components/navbar/Navbar'
 
 export default function Dashboard() {
   return (
     <div>
-      <Header/>
+      <Navbar/>
       <Body/>
     </div>
   )

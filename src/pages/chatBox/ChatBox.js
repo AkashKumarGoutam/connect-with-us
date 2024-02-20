@@ -1,10 +1,10 @@
-import React from 'react'
-import Header from './navbar/Header'
+import React from 'react';
+import Navbar from '../../components/navbar/Navbar';
 
 export default function ChatBox() {
   return (
     <div>
-      <Header/>
+      <Navbar/>
       <div className='flex'>
           <div className='flex flex-col gap-8 w-[26%] p-5 '>
             <div className=' border-2 border-gray-300 shadow-xl rounded-lg' >
