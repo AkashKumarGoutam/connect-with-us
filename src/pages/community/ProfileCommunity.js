@@ -3,41 +3,44 @@ import React, { useEffect, useState } from 'react'
 import { auth, firestore } from '../../Auth/Firebase';
 import Navbar from '../../components/navbar/Navbar'
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 
 export default function ProfileCommunity() {
+  const { userId } = useParams();
+
     const [userData, setUserData] = useState(null);
 
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              // Check if the user is authenticated
+              if (auth.currentUser) {
+                  const userUid = auth.currentUser.uid;
+                  console.log(userUid);
+                  if (!userUid) return;
 
-    const fetchData = async () => {
-        try {
-          // Check if the user is authenticated
-          if (auth.currentUser) {
-            const userUid = auth.currentUser.uid;
-            console.log(userUid);
-            if (!userUid) return;
-      
-            const querySnapshot = await getDocs(collection(firestore, "userData"));
-            querySnapshot.forEach((doc) => {
-              if (doc.id === userUid) {
-                setUserData(doc.data());
-                console.log(doc.data());
+                  const querySnapshot = await getDocs(collection(firestore, "userData"));
+                  querySnapshot.forEach((doc) => {
+                      // Check if the document ID matches the userId from the URL
+                      if (doc.id === userId) {
+                          setUserData(doc.data());
+                          console.log(doc.data());
+                      }
+                  });
+              } else {
+                  // Handle the case when the user is not authenticated
+                  console.log("User is not authenticated.");
+                  // You can redirect the user to a login page or display a message prompting them to log in.
               }
-            });
-          } else {
-            // Handle the case when the user is not authenticated
-            console.log("User is not authenticated.");
-            // You can redirect the user to a login page or display a message prompting them to log in.
+          } catch (error) {
+              console.error("Error fetching user data:", error);
           }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
       };
-      
-      
-    
-      useEffect(() => {
-        fetchData();
-      }, []);
+
+      fetchData();
+  }, [userId]); // Update the dependency array to include userId
+
 
   return (
     <div>

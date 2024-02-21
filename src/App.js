@@ -27,7 +27,7 @@ function App() {
     <Route path="/notice_page" element={<NoticePage/>} />
     <Route path="/chat" element={<ChatBox/>} />
     <Route path="/profile_edit" element={<ProfileEdit/>} />
-    <Route path="/profile_community" element={<ProfileCommunity/>} />
+    <Route path="/profile_community/:userId" element={<ProfileCommunity />} />
     </Routes>
 
     

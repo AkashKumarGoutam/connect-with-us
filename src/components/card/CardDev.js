@@ -73,7 +73,7 @@ export default function CardDev() {
                 </div>
                 <div className="flex flex-row lg:pt-6 pt-2 justify-end">
                   <Link
-                    to="/profile_community"
+                    to={`/profile_community/${user.id}`}
                     className="border-2 bg-blue-700 text-white lg:px-8 px-4 rounded-full p-1 flex flex-row justify-center items-center"
                   >
                     <img src="../img/view-details-icon.png" alt="user-icon" />
