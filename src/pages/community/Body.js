@@ -25,7 +25,7 @@ export default function Body() {
         </div>
 
 
-        <div className="flex flex-wrap w-[84%] ">
+        <div className="lg:flex lg:flex-wrap lg:w-[84%] w-full">
             <CardDev/>
          </div>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from '../../components/navbar/Navbar'
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -14,9 +15,9 @@ export default function HomePage() {
             <h1 className="text-sm">
               Platform for connect, collab, build and learn new skills
             </h1>
-            <button className="text-mb mb-8 lg:mb-0 bg-blue-500 text-white w-40 h-8 rounded-lg cursor-pointer hover:text-lg">
+            <Link to="/dashboard" className="text-mb mb-8 lg:mb-0 bg-blue-500 text-white p-3 rounded-lg cursor-pointer ">
               Connect-With-Dev
-            </button>
+            </Link>
           </div>
           <img src="../img/Agency.svg" alt="img" />
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link , useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore , auth } from "../../Auth/Firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Header() {
   const [userData,setUserData]=useState()
@@ -18,6 +19,17 @@ const openNoticePage=()=>{
   navigate("/notice_page")
 }
 
+const handleLogOut=()=>{
+  signOut(auth).then(val=>{
+    navigate('/')
+  })
+}
+
+onAuthStateChanged(auth,(userUid)=>{
+    if(!userUid){
+      navigate('/')
+        }
+})
 
 
 const fetchData = async () => {
@@ -68,8 +80,8 @@ useEffect(() => {
               {profileOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                   {/* Dropdown content */}
-                  <Link to="/profile_page" className="block px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Profile</Link>
-                  <Link to="/sign_in" className="block px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Log Out</Link>
+                  <Link to="/profile_page" className="block flex justify-center px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Profile</Link>
+                  <button onClick={handleLogOut} className="block w-full px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Log Out</button>
                   {/* Add more dropdown items as needed */}
                 </div>
               )}

@@ -10,6 +10,7 @@ import NoticePage from './pages/notification/NoticePage';
 import ChatBox from './pages/chatBox/ChatBox';
 import ProfileEdit from './pages/profile_edit/ProfileEdit';
 import Welcome from './pages/welcome/Welcome';
+import ProfileCommunity from './pages/community/ProfileCommunity';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <Route path="/notice_page" element={<NoticePage/>} />
     <Route path="/chat" element={<ChatBox/>} />
     <Route path="/profile_edit" element={<ProfileEdit/>} />
+    <Route path="/profile_community" element={<ProfileCommunity/>} />
     </Routes>
 
     

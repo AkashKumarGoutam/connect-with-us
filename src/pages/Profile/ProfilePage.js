@@ -9,21 +9,30 @@ export default function ProfilePage() {
 
   const fetchData = async () => {
     try {
-      const userUid = auth.currentUser.uid;
-      console.log(userUid)
-      if (!userUid) return;
-
-      const querySnapshot = await getDocs(collection(firestore, "userData"));
-      querySnapshot.forEach((doc) => {
-        if(doc.id === userUid){
+      // Check if the user is authenticated
+      if (auth.currentUser) {
+        const userUid = auth.currentUser.uid;
+        console.log(userUid);
+        if (!userUid) return;
+  
+        const querySnapshot = await getDocs(collection(firestore, "userData"));
+        querySnapshot.forEach((doc) => {
+          if (doc.id === userUid) {
             setUserData(doc.data());
             console.log(doc.data());
-        }
-      });
+          }
+        });
+      } else {
+        // Handle the case when the user is not authenticated
+        console.log("User is not authenticated.");
+        // You can redirect the user to a login page or display a message prompting them to log in.
+      }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchData();
@@ -52,7 +61,7 @@ export default function ProfilePage() {
         </div>
         <div className="right-div lg:w-[70%]">
           <div className="flex justify-between items-center border-2 shadow-lg">
-            <div className="flex gap-4 py-4  justify-center lg:justify-start lg:px-12 ">
+            <div className="flex py-4 justify-between items-center lg:justify-start lg:px-12 ">
               <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
                 About
               </h1>
@@ -69,7 +78,7 @@ export default function ProfilePage() {
             <div>
               <Link
                 to="/profile_edit"
-                className="text-md p-1 lg:mr-12 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer"
+                className="text-md p-1 lg:mr-12 border-2 border-gray-300 rounded-md shadow-lg lg:block hidden hover:text-white hover:bg-blue-600 cursor-pointer"
               >
                 Edit
               </Link>

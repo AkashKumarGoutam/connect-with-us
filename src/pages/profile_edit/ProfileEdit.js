@@ -11,7 +11,7 @@ import { storage } from "../../Auth/Firebase"; // Assuming you've imported stora
 
 export default function ProfileEdit() {
 
-  const [profileImageUrl, setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
+  // const [ setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
   const[profileImage ,setProfileImage]= useState()
   const [fullName, setfullName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,13 +101,6 @@ export default function ProfileEdit() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setProfileImage(file);
-  
-    // Show image preview
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setProfileImageUrl(event.target.result);
-    };
-    reader.readAsDataURL(file);
   };
   
 
@@ -132,8 +125,8 @@ export default function ProfileEdit() {
               onChange={handleImageChange}
               style={{ display: "none" }}
             />
-            <h1 className="text-md font-semibold pt-2">user</h1>
-            <h1 className="text-xs text-gray-400">email@gmail.com</h1>
+            <h1 className="text-md font-semibold pt-2">Add your photo</h1>
+            {/* <h1 className="text-xs text-gray-400">email@gmail.com</h1> */}
           </div>
         </div>
         <div className="right-div  lg:w-[70%]">
