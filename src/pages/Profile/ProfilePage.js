@@ -61,24 +61,24 @@ export default function ProfilePage() {
         </div>
         <div className="right-div lg:w-[70%]">
           <div className="flex justify-between items-center border-2 shadow-lg">
-            <div className="flex py-4 justify-between items-center lg:justify-start lg:px-12 ">
-              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <div className="flex py-4 gap-6 justify-between items-center lg:justify-start lg:px-12 ">
+              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
                 About
               </h1>
-              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
                 Academics
               </h1>
-              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
                 Projects
               </h1>
-              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+              <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
                 Certificates
               </h1>
             </div>
             <div>
               <Link
                 to="/profile_edit"
-                className="text-md p-1 lg:mr-12 border-2 border-gray-300 rounded-md shadow-lg lg:block hidden hover:text-white hover:bg-blue-600 cursor-pointer"
+                className="text-md p-1 lg:mr-12 border-2 border-gray-300 rounded-md shadow-lg lg:block hidden hover:text-white hover:bg-blue-800 cursor-pointer"
               >
                 Edit
               </Link>

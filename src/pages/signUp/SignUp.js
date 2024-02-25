@@ -30,32 +30,34 @@ export default function SignUp() {
     <div className="flex lg:flex-row flex-col">
       {/* left part */}
       <div className="flex flex-col lg:w-[50%] h-32 bg-blue-800 lg:h-screen">
-        <div className=" lg:text-4xl text-xl p-4 text-white lg:mt-5 lg:p-7">LOGO. </div>
-        <div className="  lg:mt-[30%] flex justify-center lg:text-6xl text-2xl text-white">
-          Board.
+          <div className=" lg:text-4xl text-xl p-4 text-white lg:mt-5 lg:p-7">LOGO. </div>
+          <div className="  lg:py-[15%] flex justify-center lg:text-6xl text-2xl text-white">
+            Board.
+          </div>
+          <div className="py-32 hidden lg:block">
+           <div className="flex gap-16 justify-center items-center">
+           <i
+              className="fab fa-github p-4 text-2xl text-white text-2xl text-white text-2xl cursor-pointer hover:bg-white hover:text-black rounded-full"
+              id="ic"
+            ></i>
+
+            <i
+              className="fab fa-twitter p-4 text-2xl text-white text-2xl text-white text-2xl cursor-pointer hover:bg-white hover:text-black rounded-full"
+              id="ic"
+            ></i>
+
+            <i
+              className="fab fa-linkedin-in p-4 text-2xl text-white text-2xl text-white text-2xl cursor-pointer hover:bg-white hover:text-black rounded-full"
+              id="ic"
+            ></i>
+
+              <i
+                className="fab fa-facebook-f p-4 text-2xl text-white text-2xl text-white text-2xl cursor-pointer hover:bg-white hover:text-black rounded-full"
+                id="ic"
+              ></i>
+           </div>
+          </div>
         </div>
-        <div className=" flex justify-center mt-[25%] hidden lg:block">
-          <i
-            className="fab fa-github p-4 text-2xl text-white text-2xl text-white text-2xl "
-            id="ic"
-          ></i>
-
-          <i
-            className="fab fa-twitter p-4 text-2xl text-white text-2xl text-white text-2xl"
-            id="ic"
-          ></i>
-
-          <i
-            className="fab fa-linkedin-in p-4 text-2xl text-white text-2xl text-white text-2xl"
-            id="ic"
-          ></i>
-
-          <i
-            className="fab fa-facebook-f p-4 text-2xl text-white text-2xl text-white text-2xl"
-            id="ic"
-          ></i>
-        </div>
-      </div>
       {/* end left part */}
 
       {/* right part */}
@@ -90,7 +92,7 @@ export default function SignUp() {
         {/* right second div */}
         <div>
           <div className="flex px-8 flex-col justify-center lg:py-[10%] lg:px-56">
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className=" sm:mx-auto sm:w-full sm:max-w-sm">
               <form onSubmit={handleSignup} className="space-y-6" action="#" method="POST">
               <div>
                   <label
@@ -183,7 +185,7 @@ export default function SignUp() {
               <p className="mt-10 text-center text-sm text-gray-500">
               Already you have an account?
                 <Link
-                  to="/dev_detail"
+                  to="/sign_in"
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                 >
                   SignIn 

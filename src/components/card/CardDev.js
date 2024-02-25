@@ -30,8 +30,8 @@ export default function CardDev() {
       {userData ? (
         userData.map((user) => (
           <div key={user.id}>
-            <div className="flex flex-col lg:p-4 p-2 border-2 lg:m-4 m-2 shadow-xl bg-white ">
-              <div className="flex lg:gap-16 gap-4 items-center">
+            <div className="flex flex-col lg:p-4 rounded-xl p-2 border-2 lg:m-4 m-2 shadow-xl bg-white  ">
+              <div className="flex lg:gap-16 gap-4 items-center ">
                 <div className="w-[50%]">
                   <img
                     src={user.profileImage}
@@ -40,7 +40,7 @@ export default function CardDev() {
                   />
                 </div>
                 <div className="flex flex-col lg:w-96">
-                  <h1 className="lg:text-xl lg:px-6 font-semibold">
+                  <h1 className="lg:text-xl  font-semibold">
                     {user.fullName}
                   </h1>
                   <div className="flex flex-row pt-4">

@@ -1,96 +1,135 @@
 import React, { useEffect, useState } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { firestore , auth } from "../../Auth/Firebase";
+import { firestore, auth } from "../../Auth/Firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Header() {
-  const [userData,setUserData]=useState()
-const navigate = useNavigate()
+  const [userData, setUserData] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false); // State to track if profile dropdown is open
+  const navigate = useNavigate();
 
-const [profileOpen, setProfileOpen] = useState(false); // State to track if profile dropdown is open
+  const handleProfile = () => {
+    setProfileOpen(!profileOpen); // Toggle the profile dropdown
+  };
 
-const handleProfile = () => {
-  setProfileOpen(!profileOpen); // Toggle the profile dropdown
-}   
+  const openNoticePage = () => {
+    navigate("/notice_page");
+  };
 
-
-const openNoticePage=()=>{
-  navigate("/notice_page")
-}
-
-const handleLogOut=()=>{
-  signOut(auth).then(val=>{
-    navigate('/')
-  })
-}
-
-onAuthStateChanged(auth,(userUid)=>{
-    if(!userUid){
-      navigate('/')
-        }
-})
-
-
-const fetchData = async () => {
-  try {
-    const userUid = auth.currentUser.uid;
-    console.log(userUid)
-    if (!userUid) return;
-
-    const querySnapshot = await getDocs(collection(firestore, "userData"));
-    querySnapshot.forEach((doc) => {
-      if(doc.id === userUid){
-          setUserData(doc.data());
-          console.log(doc.data());
-      }
+  const handleLogOut = () => {
+    signOut(auth).then(() => {
+      navigate("/");
     });
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-  }
-};
+  };
 
-useEffect(() => {
-  fetchData();
-}, []);
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      navigate("/");
+    }
+  });
+
+  const fetchData = async () => {
+    try {
+      const userUid = auth.currentUser.uid;
+      if (!userUid) return;
+
+      const querySnapshot = await getDocs(collection(firestore, "userData"));
+      querySnapshot.forEach((doc) => {
+        if (doc.id === userUid) {
+          setUserData(doc.data());
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <nav className="flex justify-between border-b-2 shadow-xl lg:h-20 h-16">
+      <nav className="flex justify-between bg-blue-800 text-white border-b-2 shadow-xl lg:h-20 h-20">
         <div className="flex justify-center items-center">
-        <h1 className="lg:text-3xl text-xs font-semibold lg:px-8 px-2 cursor-pointer hover:ml-6 hover:text-yellow-600">Connect-With-Us🙂</h1>
+          <h1 className="lg:text-3xl text-md font-bold lg:px-8 px-2 cursor-pointer hover:ml-6 hover:text-yellow-600">
+            <span className="lg:block hidden">Connect-With-Us🙂</span> <span className="lg:hidden block text-xl pl-2 text-blue-600">Connect-With-Us</span>
+          </h1>
         </div>
         <div className="flex justify-center items-center lg:gap-16 lg:px-6 gap-2">
-          <Link to='/home' className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600">Home</Link>
-          <Link to='/dashboard' className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600">Community</Link>
-          <Link to='/forum' className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600">Forum</Link>
+          <Link to="/home" className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600 lg:block hidden">
+            Home
+          </Link>
+          <Link to="/dashboard" className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600 lg:block hidden">
+            Community
+          </Link>
+          <Link to="/forum" className="lg:text-xl text-xs font-semibold hover:mb-2 hover:text-yellow-600 lg:block hidden">
+            Forum
+          </Link>
           <div className="flex items-center gap-2 pr-2">
             <div className="relative">
-              <sup className="absolute text-xs font-semibold text-yellow-600">0</sup>
-              <img src="../img/bell-icon.png" alt="bell-icon" onClick={openNoticePage} className="lg:w-8 lg:h-8 cursor-pointer hover:mb-1"/>
+              <sup className="absolute text-sm font-semibold">1</sup>
+              <img
+                src="../img/bell-icon.png"
+                alt="bell-icon"
+                onClick={openNoticePage}
+                className="lg:w-8 lg:h-8 h-8 w-full cursor-pointer hover:mb-1"
+              />
             </div>
-          {/* <img src="../img/profilepic.jpg" alt="profilepic" onClick={OpenProfilePage} className="lg:w-16 lg:h-16 w-8 h-8 rounded-full cursor-pointer hover:mb-1"/> */}
-          
-
-
-
-          <div className="relative">
-            {userData  &&(
-              <img src={userData.profileImage} alt='User' className=' border-4 border-blue-400 w-16 h-16 rounded-full cursor-pointer' onClick={handleProfile}/>
+            <div className="relative">
+              {userData && (
+                <img
+                  src={userData.profileImage}
+                  alt="User"
+                  className="w-12 h-12 rounded-full cursor-pointer"
+                  onClick={handleProfile}
+                />
               )}
               {profileOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                   {/* Dropdown content */}
-                  <Link to="/profile_page" className="block flex justify-center px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Profile</Link>
-                  <button onClick={handleLogOut} className="block w-full px-4 py-2 text-sm text-gray-800 hover:bg-yellow-600 hover:text-white">Log Out</button>
+
+                  <Link
+                    to="/home"
+                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white lg:hidden block"
+                  >
+                    Home
+                  </Link>
+
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white lg:hidden block"
+                  >
+                    Communty
+                  </Link>
+
+                  <Link
+                    to="/forum"
+                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white lg:hidden block"
+                  >
+                    Forum
+                  </Link>
+                  <Link
+                    to="/profile_page"
+                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleLogOut}
+                    className="block w-full flex justify-start px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white"
+                  >
+                    Log Out
+                  </button>
+
                   {/* Add more dropdown items as needed */}
                 </div>
               )}
             </div>
-          {/* end */}
           </div>
         </div>
       </nav>
-
     </div>
   );
 }

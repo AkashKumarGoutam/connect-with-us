@@ -1,24 +1,19 @@
-import React, { useEffect,useState } from "react";
-import { doc, setDoc ,getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { firestore, auth } from "../../Auth/Firebase";
-import Navbar from '../../components/navbar/Navbar';
+import Navbar from "../../components/navbar/Navbar";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Auth/Firebase"; // Assuming you've imported storage from your Firebase config file.
 
-
-
-
-
 export default function ProfileEdit() {
-
   // const [ setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
-  const[profileImage ,setProfileImage]= useState()
+  const [profileImage, setProfileImage] = useState();
   const [fullName, setfullName] = useState("");
   const [email, setEmail] = useState("");
   const [expertise, setExpertise] = useState("");
   const [college, setcollege] = useState("");
   const [city, setCity] = useState("");
-  const [skills, setSkills] = useState("");
+  const [skills, setSkills] = useState([]);
   const [about, setAbout] = useState("");
   const [phone, setPhone] = useState("");
   const [course, setcourse] = useState("");
@@ -26,51 +21,19 @@ export default function ProfileEdit() {
   const [socialLinks, setSocialLinks] = useState("");
   const currentUserid = auth.currentUser.uid;
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-          const userDocRef = doc(firestore, "userData", currentUser.uid);
-          const userDocSnapshot = await getDoc(userDocRef);
-          const userData = userDocSnapshot.data();
-
-          setfullName(userData.fullName || "");
-          setEmail(userData.email || "");
-          setExpertise(userData.expertise || "");
-          setcollege(userData.college || "");
-          setCity(userData.city || "");
-          setSkills(userData.skills || "");
-          setAbout(userData.about || "");
-          setPhone(userData.phone || "");
-          setcourse(userData.course || "");
-          setyear(userData.year || "");
-          setSocialLinks(userData.socialLinks || "");
-          setProfileImage(userData.profileImage|| "");
-
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Upload profile image to Firebase Storage
-      let profileImageUrl = '';
+      let profileImageUrl = "";
       if (profileImage) {
         const storageRef = ref(storage, `profileImages/${currentUserid}`);
         await uploadBytes(storageRef, profileImage);
         profileImageUrl = await getDownloadURL(storageRef);
       }
-      
+
       // Save user data including the profile image URL to Firestore
       const postValue = doc(firestore, "userData", currentUserid);
       await setDoc(postValue, {
@@ -87,34 +50,61 @@ export default function ProfileEdit() {
         socialLinks: socialLinks,
         profileImage: profileImageUrl, // Save profile image URL
       });
-      
+
       alert("Successfully submitted");
     } catch (error) {
       console.error("Error submitting data: ", error);
       alert("Error submitting data. Please try again later.");
     }
   };
-  
-  
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setProfileImage(file);
   };
-  
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const userDocRef = doc(firestore, "userData", currentUser.uid);
+          const userDocSnapshot = await getDoc(userDocRef);
+          const userData = userDocSnapshot.data();
+
+          setfullName(userData.fullName || "");
+          setEmail(userData.email || "");
+          setExpertise(userData.expertise || "");
+          setcollege(userData.college || "");
+          setCity(userData.city || "");
+          setSkills(userData.skills || []);
+          setAbout(userData.about || "");
+          setPhone(userData.phone || "");
+          setcourse(userData.course || "");
+          setyear(userData.year || "");
+          setSocialLinks(userData.socialLinks || "");
+          setProfileImage(userData.profileImage || "");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="flex flex-col lg:flex-row lg:gap-4">
         <div className="left-div lg:[30%]">
-          <div className="flex flex-col justify-center items-center py-4 border-2 shadow-lg lg:p-12" >          
-          
+          <div className="flex flex-col justify-center items-center py-4 border-2 shadow-lg lg:p-12">
             <label htmlFor="file-input">
               <img
-  src={profileImage}
-  alt="Profile"
+                src={profileImage}
+                alt="Profile"
                 className="border-2 lg:w-60 lg:h-60 w-24 h-24 rounded-full cursor-pointer"
               />
             </label>
@@ -131,16 +121,16 @@ export default function ProfileEdit() {
         </div>
         <div className="right-div  lg:w-[70%]">
           <div className="flex gap-4 py-4 border-2 justify-center lg:justify-start lg:px-12 shadow-lg">
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               About
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Academics
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Projects
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Certificates
             </h1>
           </div>
@@ -245,7 +235,6 @@ export default function ProfileEdit() {
                   className="border-2 w-96 rounded-lg shadow-lg hover:border-blue-600"
                 />
               </div>
-
             </div>
             <div>
               <button

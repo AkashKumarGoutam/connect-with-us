@@ -2,7 +2,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { auth, firestore } from '../../Auth/Firebase';
 import Navbar from '../../components/navbar/Navbar'
-import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 
@@ -61,27 +60,21 @@ export default function ProfileCommunity() {
       </div>
       <div className="right-div lg:w-[70%]">
         <div className="flex justify-between items-center border-2 shadow-lg">
-          <div className="flex py-4 justify-between items-center lg:justify-start lg:px-12 ">
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+          <div className="flex py-4 justify-between gap-4 items-center lg:justify-start lg:px-12 ">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               About
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Academics
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Projects
             </h1>
-            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-600 cursor-pointer">
+            <h1 className="text-md p-1 border-2 border-gray-300 rounded-md shadow-lg  hover:text-white hover:bg-blue-800 cursor-pointer">
               Certificates
             </h1>
           </div>
           <div>
-            <Link
-              to="/profile_edit"
-              className="text-md p-1 lg:mr-12 border-2 border-gray-300 rounded-md shadow-lg lg:block hidden hover:text-white hover:bg-blue-600 cursor-pointer"
-            >
-              Edit
-            </Link>
           </div>
         </div>
         <div className="border-2 py-4 px-2 shadow-md">
@@ -112,19 +105,19 @@ export default function ProfileCommunity() {
           <div className="flex flex-col gap-4 py-2">
             <h1 className="text-md font-semibold">Skills :</h1>
             <div className="flex gap-2 flex-wrap px-4">
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 {userData.skills}
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 CSS
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 JavaScript
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 React Js
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 Tailwind CSS
               </h1>
             </div>
@@ -132,22 +125,22 @@ export default function ProfileCommunity() {
           <div className="flex flex-col gap-4 py-2">
             <h1 className="text-md font-semibold">Social Links :</h1>
             <div className="flex gap-2 flex-wrap px-4">
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 LinkedIn
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 Leetcode
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 Codechef
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 geeksforgeeks
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 hackrrank
               </h1>
-              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-300">
+              <h1 className="text-sm border-2 p-1 shadow-md rounded-md cursor-pointer hover:bg-blue-800 hover:text-white">
                 portfolio
               </h1>
             </div>
