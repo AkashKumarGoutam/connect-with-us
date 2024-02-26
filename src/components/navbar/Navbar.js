@@ -54,7 +54,7 @@ export default function Header() {
       <nav className="flex justify-between bg-blue-800 text-white border-b-2 shadow-xl lg:h-20 h-20">
         <div className="flex justify-center items-center">
           <h1 className="lg:text-3xl text-md font-bold lg:px-8 px-2 cursor-pointer hover:ml-6 hover:text-yellow-600">
-            <span className="lg:block hidden">Connect-With-Us🙂</span> <span className="lg:hidden block text-xl pl-2 text-blue-600">Connect-With-Us</span>
+            <span className="lg:block hidden">Connect-With-Us🙂</span> <span className="lg:hidden block text-xl pl-2 text-white">Connect-With-Us</span>
           </h1>
         </div>
         <div className="flex justify-center items-center lg:gap-16 lg:px-6 gap-2">
@@ -78,14 +78,14 @@ export default function Header() {
               />
             </div>
             <div className="relative">
-              {userData && (
+              {userData ? (
                 <img
                   src={userData.profileImage}
                   alt="User"
-                  className="w-12 h-12 rounded-full cursor-pointer"
+                  className="border-2 w-12 h-12 rounded-full cursor-pointer"
                   onClick={handleProfile}
                 />
-              )}
+              ): <img src="https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg" alt="img" className="lg:w-8 lg:h-8 h-8 w-full rounded-full cursor-pointer hover:mb-1" onClick={handleProfile}/>}
               {profileOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                   {/* Dropdown content */}
@@ -111,7 +111,7 @@ export default function Header() {
                     Forum
                   </Link>
                   <Link
-                    to="/profile_page"
+                    to="/profile_edit"
                     className="block px-4 py-2 text-sm text-gray-800 hover:bg-blue-800 hover:text-white"
                   >
                     Profile

@@ -5,7 +5,7 @@ export default function ForumPage() {
   return (
     <div>
       <Navbar/>
-        <div className='flex lg:flex-row flex-col'>
+        <div className='flex lg:flex-row flex-col-reverse'>
           <div className='flex flex-col gap-8 lg:w-[26%] lg:p-5 '>
             <div className=' border-2 border-gray-300 shadow-xl rounded-lg' >
               <h1 className='text-xl font-semibold p-2'>Categories</h1><hr/>
@@ -82,13 +82,15 @@ export default function ForumPage() {
             <div className='border-2 lg:p-4 bg-gray-200'>
               <div className='flex justify-between'>
                 <h1 className='lg:text-2xl font-bold'> React Queries</h1>
-                <div className='flex lg:gap-4 '>
+                <div className='flex lg:gap-4 gap-6 '>
                   <input type='searchbox' placeholder=' Search topic' className=' w-52 h-8 rounded-sm'/>
-                  <button className='lg:p-1 bg-red-500 text-white flex justify-center  cursor-pointer'>New +</button>
+                  <button className='lg:p-1 w-12 h-8 bg-red-500 text-white flex justify-center items-center cursor-pointer'>New +</button>
                 </div>
               </div>
             </div>
+            <div className='min-h-36'>
             <h1 className='flex justify-center text-xl py-2'>Query Not Found !</h1>
+            </div>
           </div>  
         </div>
 

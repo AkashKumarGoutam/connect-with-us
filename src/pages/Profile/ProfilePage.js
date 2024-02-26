@@ -5,7 +5,7 @@ import { firestore, auth } from "../../Auth/Firebase"; // Assuming you have set 
 import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState("a");
+  const [userData, setUserData] = useState("null");
 
   const fetchData = async () => {
     try {
@@ -59,6 +59,7 @@ export default function ProfilePage() {
             <h1 className="text-xs text-gray-400">{userData.email}   </h1>
           </div>
         </div>
+
         <div className="right-div lg:w-[70%]">
           <div className="flex justify-between items-center border-2 shadow-lg">
             <div className="flex py-4 gap-6 justify-between items-center lg:justify-start lg:px-12 ">

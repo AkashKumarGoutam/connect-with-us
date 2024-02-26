@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { firestore, auth } from "../../Auth/Firebase";
 import Navbar from "../../components/navbar/Navbar";
@@ -6,8 +8,10 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Auth/Firebase"; // Assuming you've imported storage from your Firebase config file.
 
 export default function ProfileEdit() {
+
+  const navigate = useNavigate();
   // const [ setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
-  const [profileImage, setProfileImage] = useState();
+  const [profileImage, setProfileImage] = useState("https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg");
   const [fullName, setfullName] = useState("");
   const [email, setEmail] = useState("");
   const [expertise, setExpertise] = useState("");
@@ -50,8 +54,9 @@ export default function ProfileEdit() {
         socialLinks: socialLinks,
         profileImage: profileImageUrl, // Save profile image URL
       });
-
+      navigate('/home')
       alert("Successfully submitted");
+     
     } catch (error) {
       console.error("Error submitting data: ", error);
       alert("Error submitting data. Please try again later.");
